@@ -2,15 +2,19 @@ import React, { useState } from 'react';
 import { X, Clock } from 'lucide-react';
 import { useTimerStore } from '../store/useTimerStore';
 import { validateTimerForm } from '../utils/validation';
+import { toast } from "sonner";
 
 interface AddTimerModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export const AddTimerModal: React.FC<AddTimerModalProps> = ({ isOpen, onClose }) => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+export const AddTimerModal: React.FC<AddTimerModalProps> = ({
+  isOpen,
+  onClose,
+}) => {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
@@ -20,20 +24,20 @@ export const AddTimerModal: React.FC<AddTimerModalProps> = ({ isOpen, onClose })
     minutes: false,
     seconds: false,
   });
-  
+
   const { addTimer } = useTimerStore();
 
   if (!isOpen) return null;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateTimerForm({ title, description, hours, minutes, seconds })) {
       return;
     }
 
     const totalSeconds = hours * 3600 + minutes * 60 + seconds;
-    
+
     addTimer({
       title: title.trim(),
       description: description.trim(),
@@ -43,8 +47,8 @@ export const AddTimerModal: React.FC<AddTimerModalProps> = ({ isOpen, onClose })
     });
 
     onClose();
-    setTitle('');
-    setDescription('');
+    setTitle("");
+    setDescription("");
     setHours(0);
     setMinutes(0);
     setSeconds(0);
@@ -71,6 +75,7 @@ export const AddTimerModal: React.FC<AddTimerModalProps> = ({ isOpen, onClose })
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+      {/* <Toaster position="top-right" /> */}
       <div className="bg-white rounded-lg p-6 w-full max-w-md shadow-xl">
         <div className="flex justify-between items-center mb-6">
           <div className="flex items-center gap-2">
@@ -200,12 +205,7 @@ export const AddTimerModal: React.FC<AddTimerModalProps> = ({ isOpen, onClose })
             </button>
             <button
               type="submit"
-              className={`px-4 py-2 text-sm font-medium text-white rounded-md transition-colors ${
-                isTitleValid && isTimeValid
-                  ? "bg-blue-600 hover:bg-blue-700"
-                  : "bg-blue-400 cursor-not-allowed"
-              }`}
-              disabled={!isTitleValid || !isTimeValid}
+              className={`px-4 py-2 text-sm font-medium text-white rounded-md transition-colors bg-blue-600 hover:bg-blue-700`}
             >
               Add Timer
             </button>
