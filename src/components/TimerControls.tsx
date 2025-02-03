@@ -5,7 +5,6 @@ import CommonButton from "./CommonButton";
 interface TimerControlsProps {
   isRunning: boolean;
   remainingTime: number;
-  duration: number;
   onToggle: () => void;
   onRestart: () => void;
 }
@@ -13,7 +12,6 @@ interface TimerControlsProps {
 export const TimerControls: React.FC<TimerControlsProps> = ({
   isRunning,
   remainingTime,
-  duration,
   onToggle,
   onRestart,
 }) => {

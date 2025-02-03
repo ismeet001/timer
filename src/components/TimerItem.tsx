@@ -25,7 +25,7 @@ export const TimerItem: React.FC<TimerItemProps> = ({ timer }) => {
   useEffect(() => {
     if (timer.isRunning) {
       intervalRef.current = window.setInterval(() => {
-        updateTimer(timer.id);
+        updateTimer();
 
         if (timer.remainingTime <= 1 && !hasEndedRef.current) {
           hasEndedRef.current = true;
@@ -138,7 +138,6 @@ export const TimerItem: React.FC<TimerItemProps> = ({ timer }) => {
             <TimerControls
               isRunning={timer.isRunning}
               remainingTime={timer.remainingTime}
-              duration={timer.duration}
               onToggle={handleToggle}
               onRestart={handleRestart}
             />
